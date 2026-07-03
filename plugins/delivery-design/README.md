@@ -1,12 +1,12 @@
 # delivery-design
 
-A Claude Code plugin that takes an idea through product → feature → tickets → publish, with all source-of-truth documents co-located with the code.
+A Claude plugin (Claude Code and Cowork) that takes an idea through product → feature → tickets → publish, with all source-of-truth documents co-located with the code.
 
 > [!model] Mental Model
 > - **One source of truth: local markdown files in the repo.** Linear and other tools are sync targets, never the source.
 > - **Docs that explain the code live with the code.** Decision records, glossary, domain model, agent instructions — in-repo.
 > - **A doc is worth writing only if its "why" can't be recovered from the code.** That single test gates every decision record.
-> - **Don't invent formats that already have standards.** Agent context → `AGENTS.md`. Decisions → Decision Record. Cross-feature scope → Initiative.
+> - **Don't invent formats that already have standards.** Agent context → `AGENTS.md`. Decisions → Decision Record.
 > - **Skills handle procedures; `AGENTS.md` handles always-true rules.** Only put things in `AGENTS.md` that are short, always-true, and non-inferable from the code.
 
 ---
@@ -21,9 +21,9 @@ PRODUCT workflow   (new product — bootstraps the early SDLC)
    └─ (output)        → product-backlog.md (one entry per feature, MoSCoW prioritised)
                           │
                           ▼
-FEATURE workflow   (your existing pipeline — per backlog item)
-  feature-brief → feature-design → feature-plan → feature-tickets → feature-publish
-  idea → PRD        PRD → spec      spec → plan     plan → files      files → Linear/GitHub
+FEATURE workflow   (per backlog item)
+  feature-request → feature-brief → feature-design → feature-plan → feature-tickets → feature-publish
+  intake            idea → PRD       PRD → spec       spec → plan     plan → files      files → Linear/GitHub
 ```
 
 **New product:** run the product workflow, then push each backlog item through the feature workflow.
@@ -44,9 +44,6 @@ FEATURE workflow   (your existing pipeline — per backlog item)
 | `domain-doc` | ships | bootstraps and maintains `glossary.md` + `domain-model.md` |
 | `product-brief` | ships | idea → Product Brief + `product-backlog.md` |
 | `feature-request` | ships | intake triage; the front door before `feature-brief` |
-| `statement-of-work` | planned | commercial scope doc for contractor engagements |
-| `handover` | planned | engagement-close index over pipeline artefacts |
-| `initiative-brief` | planned | group-of-features layer (deferred until real need) |
 
 ---
 
@@ -81,15 +78,14 @@ docs/
 
 ## Install / use
 
-Each skill is distributed as a `.skill` zip bundle in `dist/`. Load them into Claude Code:
+This plugin installs via the repo's marketplace (see the repository root `README.md`):
 
-1. Open Claude Code settings → Skills
-2. Click **Install from file**
-3. Select the `.skill` bundle from `dist/`
+```
+/plugin marketplace add <owner>/claude-plugins-work
+/plugin install delivery-design
+```
 
-Or install all at once by pointing Claude Code at the `dist/` directory.
-
-Skills trigger on natural language — see each skill's `README.md` for trigger phrases.
+Skills trigger on natural language — see each skill's `SKILL.md` for trigger phrases.
 
 ---
 
